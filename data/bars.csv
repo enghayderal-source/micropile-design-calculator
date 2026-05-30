@@ -1,0 +1,15 @@
+name,part_number,bar_size,area_in2,od_in,id_in,fy_ksi,ultimate_kips,yield_kips,source
+SSSI HC3821B / RB38/21,HC3821B,RB38/21,1.02,1.50,0.83,94,119,96,SSSI hollow core bar cut sheet
+SSSI HC5132B / RB51/32,HC5132B,RB51/32,1.58,2.01,1.26,98,189,155,SSSI hollow core bar cut sheet
+SSSI HC6345B / RB63/45,HC6345B,RB63/45,2.11,2.48,1.77,99,261,209,SSSI hollow core bar cut sheet
+SSSI HC7656B / RB76/56,HC7656B,RB76/56,2.88,2.99,2.20,86,310,247,SSSI hollow core bar cut sheet
+SSSI HC10379B / TB103/79,HC10379B,TB103/79,3.91,4.06,3.11,75,360,289,SSSI hollow core bar cut sheet
+SSSI HC10375B / TB103/75,HC10375B,TB103/75,4.78,4.06,2.95,75,445,358,SSSI hollow core bar cut sheet
+SSSI HC10351B / TB103/51,HC10351B,TB103/51,8.54,4.06,2.01,70,823,600,SSSI hollow core bar cut sheet
+SSSI HC13090B / TB130/90,HC13090B,TB130/90,9.58,5.12,3.54,75,900,720,SSSI hollow core bar cut sheet
+SSSI HC13085B / TB130/85,HC13085B,TB130/85,10.71,5.12,3.35,74,1034,788,SSSI hollow core bar cut sheet
+SSSI HC13060B / TB130/60,HC13060B,TB130/60,15.19,5.12,2.36,78,1785,1180,SSSI hollow core bar cut sheet
+SSSI HC13582B / TB135/82,HC13582B,TB135/82,13.02,5.31,3.23,75,1214,971,SSSI hollow core bar cut sheet
+No.18 Grade 60 Rebar,,No.18,4.00,2.257,0,60,,,Standard Grade 60 rebar nominal area; verify actual product data
+No.20 Grade 60 Rebar,,No.20,4.91,2.500,0,60,,,Standard Grade 60 rebar nominal area; verify actual product data
+Custom Bar,,Custom,4.90,2.50,0,60,,,User input

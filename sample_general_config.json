@@ -1,0 +1,17 @@
+{
+  "pile_configuration": "Casing + hollow/core bar",
+  "required_compression_kips": 150,
+  "required_tension_kips": 0,
+  "bar_name": "No.20 Grade 60 Rebar",
+  "casing_name": "9.625 in OD x 0.500 in wall",
+  "grout_fc_psi": 5000,
+  "bond_diameter_in": 8,
+  "provided_bond_length_ft": 8,
+  "corrosion_allowance_in": 0.0,
+  "use_user_allowable_bond": false,
+  "alpha_ultimate_comp_psi": 300,
+  "alpha_ultimate_tension_psi": 300,
+  "fs_bond_comp": 2.0,
+  "fs_bond_tension": 2.0,
+  "min_socket_ft": 0
+}

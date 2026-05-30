@@ -1,0 +1,9 @@
+name,od_in,wall_in,fy_ksi,source
+No casing,0,0,0,User selected no casing
+5.5 in OD x 0.415 in wall,5.5,0.415,80,FHWA sample/common casing
+7.0 in OD x 0.500 in wall,7.0,0.500,80,FHWA common casing
+7.625 in OD x 0.500 in wall,7.625,0.500,50,Common casing option; verify actual product data
+9.625 in OD x 0.500 in wall,9.625,0.500,50,Common casing option; verify actual product data
+9.625 in OD x 0.545 in wall,9.625,0.545,80,Common casing option
+10.75 in OD x 0.500 in wall,10.75,0.500,50,Common casing option
+Custom Casing,9.625,0.500,50,User input

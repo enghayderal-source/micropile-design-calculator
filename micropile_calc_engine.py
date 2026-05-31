@@ -1,15 +1,17 @@
 """
 General micropile ASD axial design/check engine.
 
-Preliminary calculations based on the FHWA NHI-05-039 Chapter 5 workflow:
-- Eq. 5-1: allowable compression for cased length
-- Eq. 5-2: allowable tension for cased length
-- Eq. 5-7: allowable compression for uncased length
-- Eq. 5-8: allowable tension for uncased length
-- Eq. 5-9 / 5-10: grout-to-ground bond capacity and required bond length
+Preliminary calculations based on the FHWA NHI-05-039 Chapter 5 workflow and a
+transparent calculation-report format:
+- Cased compression structural capacity: casing + grout + bar components
+- Cased tension structural capacity: bar, plus casing only when explicitly allowed
+- Uncased/bond-zone compression structural capacity: grout + bar components
+- Uncased tension structural capacity: bar components
+- Multilayer grout-to-ground bond capacity below the casing end
 
 This engine supports multilayer bond calculations below the casing end and multiple
-reinforcement groups, including partial-length bars.
+reinforcement groups, including partial-length bars. It is intended for preliminary
+ASD checks and calculation report generation; it is not a sealed design.
 """
 from __future__ import annotations
 
@@ -54,6 +56,14 @@ class BarGroup:
     @property
     def area_total_in2(self) -> float:
         return max(self.quantity, 0) * max(self.bar.area_in2, 0.0)
+
+    @property
+    def nominal_diameter_in(self) -> float:
+        if self.bar.od_in > 0:
+            return self.bar.od_in
+        if self.bar.area_in2 > 0:
+            return sqrt(4.0 * self.bar.area_in2 / pi)
+        return 0.0
 
     def effective_at_depth(self, depth_ft: float, tol: float = 1e-6) -> bool:
         if self.quantity <= 0:
@@ -102,6 +112,13 @@ class MicropileInputs:
     proof_factor_tension: float = 1.0
     min_bond_length_ft: float = 0.0
     round_bond_up_to_ft: float = 0.5
+    # Structural coefficients. Defaults follow the calculation-sheet style uploaded by the user.
+    cgc: float = 0.33  # grout in cased length
+    cgb: float = 0.30  # grout in bond/uncased length
+    csc: float = 0.40  # casing compression steel
+    csb: float = 0.40  # reinforcing bar compression steel
+    cja: float = 1.00  # casing thread/joint area reduction in compression
+    cbt: float = 0.55  # bar direct tension coefficient, AASHTO default. Use 0.60 if PTI allowed.
 
 
 def area_circle(d_in: float) -> float:
@@ -127,6 +144,11 @@ def round_up(value: float, increment: float) -> float:
 
 
 def casing_effective_section(casing: Optional[Casing], corrosion_allowance_in: float) -> dict[str, float]:
+    """Return effective casing section after wall corrosion deduction.
+
+    corrosion_allowance_in is a wall-thickness deduction. Some specifications instead state a total
+    diameter loss; in that case the equivalent wall deduction is one-half of the diameter loss.
+    """
     if casing is None or casing.od_in <= 0 or casing.wall_in <= 0:
         return {"od_eff_in": 0.0, "wall_eff_in": 0.0, "id_eff_in": 0.0, "area_in2": 0.0, "I_in4": 0.0, "S_in3": 0.0, "r_in": 0.0}
     wall_eff = max(casing.wall_in - max(corrosion_allowance_in, 0.0), 0.0)
@@ -146,6 +168,14 @@ def bar_area_at_depth(inputs: MicropileInputs, depth_ft: float) -> float:
     return sum(g.area_total_in2 for g in effective_bar_groups(inputs, depth_ft))
 
 
+def bar_area_fy_sum_at_depth(inputs: MicropileInputs, depth_ft: float, cap_87: bool = False) -> float:
+    total = 0.0
+    for g in effective_bar_groups(inputs, depth_ft):
+        fy = min(g.bar.fy_ksi, 87.0) if cap_87 else g.bar.fy_ksi
+        total += g.area_total_in2 * fy
+    return total
+
+
 def bar_min_fy_at_depth(inputs: MicropileInputs, depth_ft: float, cap_87: bool = False) -> float:
     groups = effective_bar_groups(inputs, depth_ft)
     if not groups:
@@ -154,59 +184,91 @@ def bar_min_fy_at_depth(inputs: MicropileInputs, depth_ft: float, cap_87: bool =
     return min(fy, 87.0) if cap_87 else fy
 
 
-def bar_tension_capacity_at_depth(inputs: MicropileInputs, depth_ft: float) -> float:
-    # For uncased tension, FHWA Eq. 5-8 uses actual bar yield stress. With multiple bars,
-    # sum the bar contributions for groups that extend to the checked depth.
-    return sum(0.55 * g.bar.fy_ksi * g.area_total_in2 for g in effective_bar_groups(inputs, depth_ft))
-
-
 def cased_compression_at_depth(inputs: MicropileInputs, depth_ft: float) -> dict[str, float]:
     cs = casing_effective_section(inputs.casing, inputs.corrosion_allowance_in)
-    if cs["area_in2"] <= 0:
-        return {"capacity_kips": 0.0, "bar_area_in2": bar_area_at_depth(inputs, depth_ft), "grout_area_in2": 0.0, "steel_fy_ksi": 0.0, **cs}
     bar_area = bar_area_at_depth(inputs, depth_ft)
+    bar_area_fy = bar_area_fy_sum_at_depth(inputs, depth_ft, cap_87=True)
+    if cs["area_in2"] <= 0:
+        return {"capacity_kips": 0.0, "bar_area_in2": bar_area, "grout_area_in2": 0.0, "casing_component_kips": 0.0, "grout_component_kips": 0.0, "bar_component_kips": 0.0, "bar_area_fy_kip_per_in2": bar_area_fy, **cs}
     fc_ksi = inputs.grout_fc_psi / 1000.0
     grout_area = max(area_circle(cs["id_eff_in"]) - bar_area, 0.0)
-    fy_values = [87.0]
-    if inputs.casing is not None:
-        fy_values.append(inputs.casing.fy_ksi)
-    if bar_area > 0:
-        fy_values.append(bar_min_fy_at_depth(inputs, depth_ft, cap_87=True))
-    fy = min(v for v in fy_values if v > 0)
-    capacity = 0.4 * fc_ksi * grout_area + 0.47 * fy * (bar_area + cs["area_in2"])
-    return {"capacity_kips": capacity, "bar_area_in2": bar_area, "grout_area_in2": grout_area, "steel_fy_ksi": fy, **cs}
+    casing_fy = min(inputs.casing.fy_ksi if inputs.casing else 0.0, 87.0)
+    casing_component = inputs.csc * inputs.cja * cs["area_in2"] * casing_fy
+    grout_component = inputs.cgc * grout_area * fc_ksi
+    bar_component = inputs.csb * bar_area_fy
+    capacity = casing_component + grout_component + bar_component
+    return {"capacity_kips": capacity, "bar_area_in2": bar_area, "grout_area_in2": grout_area, "casing_component_kips": casing_component, "grout_component_kips": grout_component, "bar_component_kips": bar_component, "casing_fy_used_ksi": casing_fy, "bar_area_fy_kip_per_in2": bar_area_fy, **cs}
 
 
 def cased_tension_at_depth(inputs: MicropileInputs, depth_ft: float) -> dict[str, float]:
     cs = casing_effective_section(inputs.casing, inputs.corrosion_allowance_in)
     casing_area = cs["area_in2"] if inputs.count_casing_in_tension else 0.0
     bar_area = bar_area_at_depth(inputs, depth_ft)
-    if bar_area + casing_area <= 0:
-        return {"capacity_kips": 0.0, "bar_area_in2": bar_area, "casing_area_counted_in2": casing_area, "steel_fy_ksi": 0.0, **cs}
-    fy_values = []
-    if bar_area > 0:
-        fy_values.append(bar_min_fy_at_depth(inputs, depth_ft, cap_87=False))
-    if casing_area > 0 and inputs.casing is not None:
-        fy_values.append(inputs.casing.fy_ksi)
-    fy = min(fy_values) if fy_values else 0.0
-    capacity = 0.55 * fy * (bar_area + casing_area)
-    return {"capacity_kips": capacity, "bar_area_in2": bar_area, "casing_area_counted_in2": casing_area, "steel_fy_ksi": fy, **cs}
+    bar_area_fy = bar_area_fy_sum_at_depth(inputs, depth_ft, cap_87=False)
+    casing_area_fy = casing_area * (inputs.casing.fy_ksi if inputs.casing else 0.0)
+    bar_component = inputs.cbt * bar_area_fy
+    casing_component = inputs.cbt * casing_area_fy
+    capacity = bar_component + casing_component
+    fy = bar_min_fy_at_depth(inputs, depth_ft, cap_87=False)
+    return {"capacity_kips": capacity, "bar_area_in2": bar_area, "casing_area_counted_in2": casing_area, "steel_fy_ksi": fy, "bar_component_kips": bar_component, "casing_component_kips": casing_component, "bar_area_fy_kip_per_in2": bar_area_fy, **cs}
 
 
 def uncased_compression_at_depth(inputs: MicropileInputs, depth_ft: float) -> dict[str, float]:
     bar_area = bar_area_at_depth(inputs, depth_ft)
+    bar_area_fy = bar_area_fy_sum_at_depth(inputs, depth_ft, cap_87=True)
     fc_ksi = inputs.grout_fc_psi / 1000.0
     grout_area = max(area_circle(inputs.bond_diameter_in) - bar_area, 0.0)
+    grout_component = inputs.cgb * grout_area * fc_ksi
+    bar_component = inputs.csb * bar_area_fy
+    capacity = grout_component + bar_component
     fy = bar_min_fy_at_depth(inputs, depth_ft, cap_87=True)
-    capacity = 0.4 * fc_ksi * grout_area + 0.47 * fy * bar_area
-    return {"capacity_kips": capacity, "bar_area_in2": bar_area, "grout_area_in2": grout_area, "steel_fy_ksi": fy}
+    return {"capacity_kips": capacity, "bar_area_in2": bar_area, "grout_area_in2": grout_area, "steel_fy_ksi": fy, "grout_component_kips": grout_component, "bar_component_kips": bar_component, "bar_area_fy_kip_per_in2": bar_area_fy}
 
 
 def uncased_tension_at_depth(inputs: MicropileInputs, depth_ft: float) -> dict[str, float]:
     bar_area = bar_area_at_depth(inputs, depth_ft)
-    capacity = bar_tension_capacity_at_depth(inputs, depth_ft)
+    bar_area_fy = bar_area_fy_sum_at_depth(inputs, depth_ft, cap_87=False)
+    capacity = inputs.cbt * bar_area_fy
     fy = bar_min_fy_at_depth(inputs, depth_ft, cap_87=False)
-    return {"capacity_kips": capacity, "bar_area_in2": bar_area, "steel_fy_ksi": fy}
+    return {"capacity_kips": capacity, "bar_area_in2": bar_area, "steel_fy_ksi": fy, "bar_component_kips": capacity, "bar_area_fy_kip_per_in2": bar_area_fy}
+
+
+def partial_bar_development_checks(inputs: MicropileInputs) -> list[dict[str, Any]]:
+    """Simplified development-length check for partial bars using the uploaded example format.
+
+    For partial bar scenarios, the report calculates a reference tension development length:
+    ld1 = 0.05 db fy / sqrt(fc) and ld2 = 0.075 db fy / sqrt(fc), with fc in psi and fy in psi.
+    The available length is conservatively taken as the length of the partial bar above the casing end.
+    This is a planning check only; final development and connection detailing must be verified by EOR.
+    """
+    rows: list[dict[str, Any]] = []
+    sqrt_fc = sqrt(max(inputs.grout_fc_psi, 1.0))
+    for g in inputs.bar_groups:
+        if g.quantity <= 0:
+            continue
+        if g.length_ft >= inputs.total_pile_length_ft - 1e-6:
+            continue
+        db = g.nominal_diameter_in
+        fy_psi = g.bar.fy_ksi * 1000.0
+        ld1 = 0.05 * db * fy_psi / sqrt_fc
+        ld2 = 0.075 * db * fy_psi / sqrt_fc
+        ld_req = max(ld1, ld2)
+        avail_above_casing = max(g.length_ft - inputs.casing_end_ft, 0.0) * 12.0
+        rows.append({
+            "group": g.name,
+            "bar": g.bar.name,
+            "qty": g.quantity,
+            "bar_diameter_in": db,
+            "fy_ksi": g.bar.fy_ksi,
+            "length_ft": g.length_ft,
+            "ld1_in": ld1,
+            "ld2_in": ld2,
+            "ld_required_in": ld_req,
+            "available_above_casing_in": avail_above_casing,
+            "status": "OK" if avail_above_casing >= ld_req else "REVIEW",
+            "note": "For partial bar scenario. Verify final development length/detailing by EOR."
+        })
+    return rows
 
 
 def structural_capacities(inputs: MicropileInputs) -> dict[str, Any]:
@@ -215,7 +277,6 @@ def structural_capacities(inputs: MicropileInputs) -> dict[str, Any]:
     has_casing = inputs.casing is not None and inputs.casing.od_in > 0 and inputs.casing.wall_in > 0
     config = inputs.pile_configuration.lower()
 
-    # Critical depths: cased length bottom and pile tip. Partial bars are counted only where they extend.
     cased_depth = casing_end if has_casing else 0.0
     uncased_start = casing_end
     uncased_tip = tip
@@ -238,7 +299,6 @@ def structural_capacities(inputs: MicropileInputs) -> dict[str, Any]:
         comp_section = "bar + grout; checked at top and tip of bond"
         tens_section = "bar steel only; checked at top and tip of bond"
     elif inputs.casing_extends_full_length:
-        # Casing is assumed to continue to tip; use cased section at tip.
         cased_comp_tip = cased_compression_at_depth(inputs, tip)
         cased_tens_tip = cased_tension_at_depth(inputs, tip)
         comp_control = min(cased_comp["capacity_kips"], cased_comp_tip["capacity_kips"])
@@ -248,13 +308,10 @@ def structural_capacities(inputs: MicropileInputs) -> dict[str, Any]:
     else:
         comp_control = min(cased_comp["capacity_kips"], uncased_comp_start["capacity_kips"], uncased_comp_tip["capacity_kips"])
         tens_control = min(cased_tens["capacity_kips"], uncased_tens_start["capacity_kips"], uncased_tens_tip["capacity_kips"])
-        comp_section = "minimum of cased length, bond start, and pile tip"
-        tens_section = "minimum of cased length, bond start, and pile tip"
+        comp_section = "minimum of cased section and uncased bond-zone section"
+        tens_section = "minimum of cased section and uncased bond-zone section"
 
     return {
-        "cased_depth_checked_ft": cased_depth,
-        "uncased_start_checked_ft": uncased_start,
-        "uncased_tip_checked_ft": uncased_tip,
         "cased_compression": cased_comp,
         "cased_tension": cased_tens,
         "uncased_compression_start": uncased_comp_start,
@@ -265,6 +322,7 @@ def structural_capacities(inputs: MicropileInputs) -> dict[str, Any]:
         "controlling_tension_capacity_kips": tens_control,
         "controlling_compression_section": comp_section,
         "controlling_tension_section": tens_section,
+        "partial_bar_development": partial_bar_development_checks(inputs),
     }
 
 
@@ -306,7 +364,7 @@ def multilayer_bond_capacity(inputs: MicropileInputs) -> dict[str, Any]:
 
 def required_length_multilayer(inputs: MicropileInputs, direction: str, load_kips: float) -> dict[str, Any]:
     if load_kips <= 0:
-        return {"required_length_ft": 0.0, "rounded_required_length_ft": max(inputs.min_bond_length_ft, 0.0), "segments": [], "satisfied": True}
+        return {"required_length_ft": 0.0, "rounded_required_length_ft": max(inputs.min_bond_length_ft, 0.0), "segments": [], "satisfied": True, "target_kips": load_kips}
     target = load_kips * 1000.0
     accumulated = 0.0
     required_length = 0.0
@@ -376,6 +434,8 @@ def calculate(inputs: MicropileInputs) -> dict[str, Any]:
     for g in inputs.bar_groups:
         if g.quantity > 0 and g.length_ft < inputs.total_pile_length_ft:
             warnings.append(f"Partial bar group '{g.name}' stops at {g.length_ft:.1f} ft; it is not counted below that depth.")
+    if structural["partial_bar_development"]:
+        warnings.append("Partial-length bar development checks are preliminary. Confirm final bar development/anchorage and couplers by EOR.")
     if not (comp_struct_ok and tens_struct_ok and comp_geo_ok and tens_geo_ok and length_ok):
         warnings.append("One or more checks fail. Increase bar/casing size, bond diameter, bond length, or revise loads/assumptions.")
 

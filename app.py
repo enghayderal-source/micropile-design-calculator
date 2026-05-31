@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 import os
 import hmac
+from io import BytesIO
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -188,12 +190,205 @@ def make_svg(layers: list[SoilLayer], inputs: MicropileInputs, results: dict[str
     return ''.join(parts)
 
 
+def _fmt(value: Any, digits: int = 2) -> str:
+    try:
+        v = float(value)
+        if not (v == v) or v == float("inf") or v == float("-inf"):
+            return "N/A"
+        return f"{v:.{digits}f}"
+    except Exception:
+        return str(value)
+
+
+def generate_pdf_report(inputs: MicropileInputs, results: dict[str, Any], summary: dict[str, Any],
+                        report_info: dict[str, str], casing_label: str, bar_groups: list[BarGroup]) -> bytes:
+    """Create a full draft calculation report with DRAFT watermark."""
+    from reportlab.lib import colors
+    from reportlab.lib.enums import TA_CENTER, TA_LEFT
+    from reportlab.lib.pagesizes import letter
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.units import inch
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak
+
+    buffer = BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=letter, rightMargin=0.55*inch, leftMargin=0.55*inch, topMargin=0.55*inch, bottomMargin=0.55*inch)
+    styles = getSampleStyleSheet()
+    styles.add(ParagraphStyle(name="CenterTitle", parent=styles["Title"], alignment=TA_CENTER, fontSize=18, leading=22, spaceAfter=12))
+    styles.add(ParagraphStyle(name="H1x", parent=styles["Heading1"], fontSize=14, leading=17, spaceBefore=8, spaceAfter=6))
+    styles.add(ParagraphStyle(name="H2x", parent=styles["Heading2"], fontSize=11, leading=14, spaceBefore=6, spaceAfter=4))
+    styles.add(ParagraphStyle(name="Small", parent=styles["Normal"], fontSize=8, leading=10))
+    styles.add(ParagraphStyle(name="Tiny", parent=styles["Normal"], fontSize=7, leading=8))
+    styles.add(ParagraphStyle(name="Formula", parent=styles["Normal"], fontName="Courier", fontSize=8.5, leading=10, leftIndent=10, spaceBefore=3, spaceAfter=3))
+
+    def on_page(canvas, doc_):
+        canvas.saveState()
+        canvas.setFont("Helvetica-Bold", 62)
+        canvas.setFillColor(colors.Color(0.82, 0.82, 0.82, alpha=0.22))
+        canvas.translate(letter[0]/2, letter[1]/2)
+        canvas.rotate(38)
+        canvas.drawCentredString(0, 0, "DRAFT")
+        canvas.restoreState()
+        canvas.saveState()
+        canvas.setFont("Helvetica", 8)
+        canvas.setFillColor(colors.grey)
+        canvas.drawString(0.55*inch, 0.33*inch, "Preliminary calculation report - for review only")
+        canvas.drawRightString(letter[0]-0.55*inch, 0.33*inch, f"Page {doc_.page}")
+        canvas.restoreState()
+
+    def P(text, style="Normal"):
+        return Paragraph(str(text).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"), styles[style])
+
+    def tbl(rows, widths=None, font=7.5):
+        data = []
+        for row in rows:
+            data.append([Paragraph(str(x).replace("&", "&amp;"), styles["Tiny"]) for x in row])
+        t = Table(data, colWidths=widths, repeatRows=1)
+        t.setStyle(TableStyle([
+            ("BACKGROUND", (0,0), (-1,0), colors.HexColor("#e5e7eb")),
+            ("TEXTCOLOR", (0,0), (-1,0), colors.black),
+            ("FONTNAME", (0,0), (-1,0), "Helvetica-Bold"),
+            ("FONTSIZE", (0,0), (-1,-1), font),
+            ("GRID", (0,0), (-1,-1), 0.35, colors.grey),
+            ("VALIGN", (0,0), (-1,-1), "TOP"),
+            ("LEFTPADDING", (0,0), (-1,-1), 3),
+            ("RIGHTPADDING", (0,0), (-1,-1), 3),
+            ("TOPPADDING", (0,0), (-1,-1), 3),
+            ("BOTTOMPADDING", (0,0), (-1,-1), 3),
+        ]))
+        return t
+
+    story = []
+    story.append(P("MICROPILE DESIGN CALCULATION REPORT", "CenterTitle"))
+    story.append(P("DRAFT - Preliminary ASD axial design check", "Heading2"))
+    cover = [
+        ["Project title", report_info.get("project_title", "")],
+        ["Location", report_info.get("location", "")],
+        ["Prepared by", report_info.get("prepared_by", "")],
+        ["Checked by", report_info.get("checked_by", "")],
+        ["Revision", report_info.get("revision", "Draft")],
+        ["Date", report_info.get("date", "")],
+    ]
+    story.append(tbl([["Item", "Value"]] + cover, widths=[1.7*inch, 4.8*inch], font=8))
+    story.append(Spacer(1, 0.2*inch))
+    story.append(P("Important Notes", "H1x"))
+    story.append(P("This report is generated from user-entered values and generic material/geotechnical databases. It is intended for preliminary design review only. Final design must be reviewed and sealed by the Engineer of Record, including lateral loading, bending, buckling, pile-cap connection, corrosion classification, couplers, group effects, load testing requirements, and project-specific code requirements."))
+    story.append(PageBreak())
+
+    story.append(P("1. Design Basis and Summary", "H1x"))
+    story.append(P("The calculation checks allowable axial compression and tension capacity of the selected micropile section and grout-to-ground bond capacity through multiple layers below the casing end. The bond calculations use the portion of each entered layer located below the casing end and above the pile tip."))
+    summary_rows = [
+        ["Check", "Value"],
+        ["Final status", summary["Final OK"]],
+        ["Required allowable compression", f"{inputs.required_compression_kips:.1f} kips"],
+        ["Required allowable tension/uplift", f"{inputs.required_tension_kips:.1f} kips"],
+        ["Controlling compression structural capacity", f"{summary['Controlling compression structural capacity (kips)']:.1f} kips"],
+        ["Controlling tension structural capacity", f"{summary['Controlling tension structural capacity (kips)']:.1f} kips"],
+        ["Provided compression bond capacity", f"{summary['Provided compression bond capacity (kips)']:.1f} kips"],
+        ["Provided tension bond capacity", f"{summary['Provided tension bond capacity (kips)']:.1f} kips"],
+        ["Governing required bond length", f"{summary['Governing required bond length (ft)']} ft"],
+        ["Available bond length", f"{max(inputs.total_pile_length_ft-inputs.casing_end_ft,0):.1f} ft"],
+    ]
+    story.append(tbl(summary_rows, widths=[3.1*inch, 3.4*inch]))
+
+    story.append(P("2. Pile Geometry and Materials", "H1x"))
+    mat_rows = [["Parameter", "Value"]]
+    mat_rows += [
+        ["Pile configuration", inputs.pile_configuration],
+        ["Casing", casing_label],
+        ["Casing end / bond start", f"{inputs.casing_end_ft:.2f} ft"],
+        ["Pile tip depth", f"{inputs.total_pile_length_ft:.2f} ft"],
+        ["Bond/drill-hole diameter", f"{inputs.bond_diameter_in:.2f} in"],
+        ["Grout/concrete f'c", f"{inputs.grout_fc_psi:.0f} psi"],
+        ["Casing corrosion wall deduction", f"{inputs.corrosion_allowance_in:.4f} in"],
+    ]
+    story.append(tbl(mat_rows, widths=[2.8*inch, 3.7*inch]))
+    bg_rows = [["Group", "Bar", "Qty", "Length from top", "Total area"]]
+    for g in bar_groups:
+        bg_rows.append([g.name, g.bar.name, str(g.quantity), f"{g.length_ft:.2f} ft", f"{g.area_total_in2:.3f} in2"])
+    story.append(Spacer(1, 0.08*inch))
+    story.append(tbl(bg_rows, widths=[1.2*inch, 2.7*inch, 0.5*inch, 1.0*inch, 1.1*inch]))
+
+    story.append(P("3. Structural Capacity Calculations", "H1x"))
+    story.append(P("Coefficient method used in this report:", "H2x"))
+    story.append(P("Pca = Csc*Cja*Asc*Fyc + Cgc*Agc*f'c + Csb*sum(Asr*Fyb)", "Formula"))
+    story.append(P("Pba = Cgb*Agb*f'c + Csb*sum(Asr*Fyb)", "Formula"))
+    story.append(P("Pta = Cbt*sum(Asr*Fyb), plus casing only when the casing-tension option is selected", "Formula"))
+    coeff_rows = [["Coefficient", "Value", "Description"], ["Cgc", _fmt(inputs.cgc,2), "Grout in cased length"], ["Cgb", _fmt(inputs.cgb,2), "Grout in bond/uncased length"], ["Csc", _fmt(inputs.csc,2), "Casing compression steel"], ["Csb", _fmt(inputs.csb,2), "Bar compression steel"], ["Cja", _fmt(inputs.cja,2), "Casing joint/thread compression factor"], ["Cbt", _fmt(inputs.cbt,2), "Direct tension steel coefficient"]]
+    story.append(tbl(coeff_rows, widths=[1.1*inch, 0.7*inch, 4.7*inch]))
+
+    stc = results["structural"]
+    detail_rows = [["Section", "Total cap.", "Casing", "Grout", "Bar", "Ag/As info"]]
+    def add_sec(label, d):
+        detail_rows.append([
+            label,
+            f"{d.get('capacity_kips',0):.1f} kip",
+            f"{d.get('casing_component_kips',0):.1f}",
+            f"{d.get('grout_component_kips',0):.1f}",
+            f"{d.get('bar_component_kips',0):.1f}",
+            f"Abar={d.get('bar_area_in2',0):.2f} in2; Agrout={d.get('grout_area_in2',0):.2f} in2; Acasing={d.get('area_in2',0):.2f} in2"
+        ])
+    add_sec("Cased compression at casing end", stc.get("cased_compression", {}))
+    add_sec("Cased tension at casing end", stc.get("cased_tension", {}))
+    add_sec("Uncased compression at bond start", stc.get("uncased_compression_start", {}))
+    add_sec("Uncased compression at pile tip", stc.get("uncased_compression_tip", {}))
+    add_sec("Uncased tension at bond start", stc.get("uncased_tension_start", {}))
+    add_sec("Uncased tension at pile tip", stc.get("uncased_tension_tip", {}))
+    story.append(tbl(detail_rows, widths=[2.0*inch, 0.8*inch, 0.7*inch, 0.7*inch, 0.7*inch, 1.6*inch], font=7))
+    story.append(P(f"Controlling compression section: {stc.get('controlling_compression_section','')}", "Small"))
+    story.append(P(f"Controlling tension section: {stc.get('controlling_tension_section','')}", "Small"))
+
+    if stc.get("partial_bar_development"):
+        story.append(P("Partial Bar Development Review", "H2x"))
+        drows = [["Group", "Bar", "db", "ld1", "ld2", "ld req", "Available", "Status"]]
+        for d in stc["partial_bar_development"]:
+            drows.append([d["group"], d["bar"], f"{d['bar_diameter_in']:.2f} in", f"{d['ld1_in']:.1f} in", f"{d['ld2_in']:.1f} in", f"{d['ld_required_in']:.1f} in", f"{d['available_above_casing_in']:.1f} in", d["status"]])
+        story.append(tbl(drows, widths=[1.0*inch, 1.8*inch, 0.55*inch, 0.6*inch, 0.6*inch, 0.65*inch, 0.75*inch, 0.6*inch], font=7))
+
+    story.append(P("4. Multilayer Geotechnical Bond Capacity", "H1x"))
+    story.append(P("Bond capacity per layer is calculated as P = pi*Db*L*alpha_allow, where Db is the bond diameter, L is the portion of the layer below the casing end and above the pile tip, and alpha_allow is the allowable grout-to-ground bond stress."))
+    layer_rows = [["Layer", "Depth", "Used L", "Soil/Rock", "Grout", "alpha allow C/T", "Cap C/T"]]
+    for r in results["bond"]["rows"]:
+        layer_rows.append([f"L{r['layer_index']+1}: {r['label']}", f"{r['top_ft']:.1f}-{r['bottom_ft']:.1f} ft", f"{r['bond_overlap_ft']:.2f} ft", r["soil_type"], r["grout_type"], f"{r['allowable_comp_psi']:.1f}/{r['allowable_tension_psi']:.1f} psi", f"{r['comp_capacity_kips']:.1f}/{r['tension_capacity_kips']:.1f} kip"])
+    story.append(tbl(layer_rows, widths=[1.2*inch, 0.75*inch, 0.65*inch, 1.8*inch, 0.45*inch, 0.8*inch, 0.85*inch], font=6.6))
+
+    story.append(P("Required Bond Length Accumulation", "H2x"))
+    seg_rows = [["Direction", "Layer", "Used length", "Capacity", "Note"]]
+    for direction in ["compression", "tension"]:
+        req = results["required_lengths"][direction]
+        if req["segments"]:
+            for seg in req["segments"]:
+                seg_rows.append([direction.title(), f"L{seg['layer_index']+1}", f"{seg['used_length_ft']:.2f} ft", f"{seg['capacity_kips']:.1f} kip", seg["note"]])
+        else:
+            seg_rows.append([direction.title(), "-", "0.00 ft", "0.0 kip", "No demand"])
+    story.append(tbl(seg_rows, widths=[1.2*inch, 0.8*inch, 1.0*inch, 1.0*inch, 2.5*inch]))
+
+    story.append(P("5. Warnings and Review Items", "H1x"))
+    if results.get("warnings"):
+        for w in results["warnings"]:
+            story.append(P("- " + w, "Small"))
+    else:
+        story.append(P("No calculation warnings generated by the software.", "Small"))
+
+    story.append(P("6. Calculation Basis", "H1x"))
+    story.append(P("This report follows a preliminary ASD axial capacity workflow for micropiles, including structural section checks and multilayer grout-to-ground bond checks. Bond values from the default table are treated as ultimate values and divided by the selected factor of safety unless the user selects project/user allowable bond values. The report intentionally contains no company logo or company name.", "Small"))
+
+    doc.build(story, onFirstPage=on_page, onLaterPages=on_page)
+    return buffer.getvalue()
+
+
 bars_df, casings_df, bonds_df = load_data()
 
 st.title("Micropile ASD Design Calculator")
 st.caption("General preliminary axial compression/tension, casing/bar/grout, and multilayer grout-to-ground bond checks based on the FHWA NHI-05-039 workflow.")
 
 with st.sidebar:
+    st.header("Report Information")
+    report_project_title = st.text_input("Project title", value="Micropile Design")
+    report_location = st.text_input("Location", value="")
+    report_prepared_by = st.text_input("Prepared by", value="")
+    report_checked_by = st.text_input("Checked by", value="")
+    report_revision = st.text_input("Revision", value="Draft")
+
     st.header("Design Loads")
     required_compression_kips = st.number_input("Required allowable compression per pile (kips)", min_value=0.0, value=150.0, step=5.0)
     required_tension_kips = st.number_input("Required allowable uplift/tension per pile (kips)", min_value=0.0, value=0.0, step=5.0)
@@ -209,7 +404,7 @@ with st.sidebar:
 
     st.header("Casing")
     casing_names = casings_df["name"].tolist()
-    default_casing = "Nucor A252 Pipe 9 5/8 in OD x 0.500 in wall"
+    default_casing = "A252 Pipe 9.625 in OD x 0.500 in wall"
     if "Bar only" in pile_configuration:
         default_casing = "No casing"
     casing_idx = casing_names.index(default_casing) if default_casing in casing_names else 0
@@ -231,6 +426,14 @@ with st.sidebar:
     st.header("Testing Factors")
     proof_factor_comp = st.number_input("Compression proof/test factor for bond", min_value=1.0, value=1.0, step=0.1)
     proof_factor_tension = st.number_input("Tension proof/test factor for bond", min_value=1.0, value=1.0, step=0.1)
+
+    with st.expander("Advanced structural coefficients", expanded=False):
+        cgc = st.number_input("Cgc - grout coefficient in cased length", min_value=0.0, value=0.33, step=0.01, format="%.2f")
+        cgb = st.number_input("Cgb - grout coefficient in bond/uncased length", min_value=0.0, value=0.30, step=0.01, format="%.2f")
+        csc = st.number_input("Csc - casing compression coefficient", min_value=0.0, value=0.40, step=0.01, format="%.2f")
+        csb = st.number_input("Csb - bar compression coefficient", min_value=0.0, value=0.40, step=0.01, format="%.2f")
+        cja = st.number_input("Cja - casing joint/thread compression reduction", min_value=0.0, value=1.00, step=0.05, format="%.2f")
+        cbt = st.number_input("Cbt - direct tension coefficient", min_value=0.0, value=0.55, step=0.01, format="%.2f")
 
     st.header("Drawing")
     show_groundwater = st.checkbox("Show groundwater line", value=False)
@@ -320,6 +523,12 @@ inputs = MicropileInputs(
     proof_factor_tension=float(proof_factor_tension),
     min_bond_length_ft=float(min_bond_length_ft),
     round_bond_up_to_ft=float(round_bond_up_to_ft),
+    cgc=float(cgc),
+    cgb=float(cgb),
+    csc=float(csc),
+    csb=float(csb),
+    cja=float(cja),
+    cbt=float(cbt),
 )
 
 results = calculate(inputs)
@@ -399,12 +608,13 @@ with st.expander("Database preview / no duplicate check"):
 with st.expander("Detailed assumptions and equations"):
     st.markdown(
         """
-- Cased compression follows FHWA Eq. 5-1 using grout plus casing/bar steel. For mixed steel grades, the app uses the minimum applicable steel Fy capped at 87 ksi for compression strain compatibility.
-- Cased tension follows FHWA Eq. 5-2. Casing is not counted in tension unless you turn on the casing-tension option.
-- Uncased compression follows FHWA Eq. 5-7. Uncased tension follows Eq. 5-8.
-- Multilayer bond capacity follows FHWA Eq. 5-9. For each layer below the casing end, the app calculates overlap length × π × bond diameter × allowable bond.
+- Cased compression structural capacity is calculated component-by-component: Pca = Csc*Cja*Asc*Fyc + Cgc*Agc*f'c + Csb*sum(Asr*Fyb).
+- Bond/uncased compression structural capacity: Pba = Cgb*Agb*f'c + Csb*sum(Asr*Fyb).
+- Direct tension structural capacity: Pta = Cbt*sum(Asr*Fyb), plus casing only if the casing-tension option is turned on.
+- Steel Fy used in compression is capped at 87 ksi for strain compatibility unless final design justifies otherwise.
+- Multilayer bond capacity follows FHWA Eq. 5-9. For each layer below the casing end, the app calculates overlap length times pi times bond diameter times allowable bond.
 - FHWA Table 5-3 bond values are ultimate values; the app divides them by the layer FS unless you enter user allowable bond values.
-- Partial bars are counted only at depths where the entered bar length reaches that depth.
+- Partial bars are counted only at depths where the entered bar length reaches that depth. A preliminary development-length review is reported for partial bars.
 """
     )
 
@@ -415,3 +625,13 @@ report = {
     "results": results,
 }
 st.download_button("Download JSON report", data=json.dumps(report, indent=2, default=str), file_name="micropile_design_report.json", mime="application/json")
+report_info = {
+    "project_title": report_project_title,
+    "location": report_location,
+    "prepared_by": report_prepared_by,
+    "checked_by": report_checked_by,
+    "revision": report_revision,
+    "date": date.today().isoformat(),
+}
+pdf_bytes = generate_pdf_report(inputs, results, summary, report_info, casing_label, bar_groups)
+st.download_button("Download DRAFT PDF calculation report", data=pdf_bytes, file_name="micropile_design_calculation_report_DRAFT.pdf", mime="application/pdf")

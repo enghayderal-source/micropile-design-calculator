@@ -1,29 +1,29 @@
 bar_id,name,bar_type,supplier,part_number,designation,fy_ksi,area_in2,od_in,id_in,ultimate_kips,yield_kips,weight_lbft,major_thread_diameter_in,max_length_ft,source
-SSSI_HC3821B_RB38_21,SSSI HC3821B / RB38/21,Hollow core bar,SSSI,HC3821B,RB38/21,94,1.02,1.5,0.83,119,96,3.5,,,SSSI hollow core bar cut sheet
-SSSI_HC5132B_RB51_32,SSSI HC5132B / RB51/32,Hollow core bar,SSSI,HC5132B,RB51/32,98,1.58,2.01,1.26,189,155,5.4,,,SSSI hollow core bar cut sheet
-SSSI_HC6345B_RB63_45,SSSI HC6345B / RB63/45,Hollow core bar,SSSI,HC6345B,RB63/45,99,2.11,2.48,1.77,261,209,7.2,,,SSSI hollow core bar cut sheet
-SSSI_HC7656B_RB76_56,SSSI HC7656B / RB76/56,Hollow core bar,SSSI,HC7656B,RB76/56,86,2.88,2.99,2.2,310,247,9.8,,,SSSI hollow core bar cut sheet
-SSSI_HC10379B_TB103_79,SSSI HC10379B / TB103/79,Hollow core bar,SSSI,HC10379B,TB103/79,75,3.91,4.06,3.11,360,289,13.3,,,SSSI hollow core bar cut sheet
-SSSI_HC10375B_TB103_75,SSSI HC10375B / TB103/75,Hollow core bar,SSSI,HC10375B,TB103/75,75,4.78,4.06,2.95,445,358,16.3,,,SSSI hollow core bar cut sheet
-SSSI_HC10351B_TB103_51,SSSI HC10351B / TB103/51,Hollow core bar,SSSI,HC10351B,TB103/51,70,8.54,4.06,2.01,823,600,29.1,,,SSSI hollow core bar cut sheet
-SSSI_HC13090B_TB130_90,SSSI HC13090B / TB130/90,Hollow core bar,SSSI,HC13090B,TB130/90,75,9.58,5.12,3.54,900,720,32.6,,,SSSI hollow core bar cut sheet
-SSSI_HC13085B_TB130_85,SSSI HC13085B / TB130/85,Hollow core bar,SSSI,HC13085B,TB130/85,74,10.71,5.12,3.35,1034,788,36.5,,,SSSI hollow core bar cut sheet
-SSSI_HC13060B_TB130_60,SSSI HC13060B / TB130/60,Hollow core bar,SSSI,HC13060B,TB130/60,78,15.19,5.12,2.36,1785,1180,51.7,,,SSSI hollow core bar cut sheet
-SSSI_HC13582B_TB135_82,SSSI HC13582B / TB135/82,Hollow core bar,SSSI,HC13582B,TB135/82,75,13.02,5.31,3.23,1214,971,44.3,,,SSSI hollow core bar cut sheet
-Nucor_G80_#6,Nucor Grade 80 Fully Threaded Bar #6,Solid threaded bar,Nucor Skyline,,#6,80,0.44,0.75,0.0,44,35.2,1.5,0.86,60,Nucor fully threaded bar data sheet Grade 80
-Nucor_G80_#7,Nucor Grade 80 Fully Threaded Bar #7,Solid threaded bar,Nucor Skyline,,#7,80,0.6,0.875,0.0,60,48.0,2.0,0.99,60,Nucor fully threaded bar data sheet Grade 80
-Nucor_G80_#8,Nucor Grade 80 Fully Threaded Bar #8,Solid threaded bar,Nucor Skyline,,#8,80,0.79,1.0,0.0,79,63.2,2.7,1.12,60,Nucor fully threaded bar data sheet Grade 80
-Nucor_G80_#9,Nucor Grade 80 Fully Threaded Bar #9,Solid threaded bar,Nucor Skyline,,#9,80,1.0,1.125,0.0,100,80.0,3.4,1.26,60,Nucor fully threaded bar data sheet Grade 80
-Nucor_G80_#10,Nucor Grade 80 Fully Threaded Bar #10,Solid threaded bar,Nucor Skyline,,#10,80,1.27,1.25,0.0,127,101.6,4.3,1.43,60,Nucor fully threaded bar data sheet Grade 80
-Nucor_G80_#11,Nucor Grade 80 Fully Threaded Bar #11,Solid threaded bar,Nucor Skyline,,#11,80,1.56,1.375,0.0,156,124.8,5.3,1.61,60,Nucor fully threaded bar data sheet Grade 80
-Nucor_G80_#14,Nucor Grade 80 Fully Threaded Bar #14,Solid threaded bar,Nucor Skyline,,#14,80,2.25,1.75,0.0,225,180.0,7.7,1.86,60,Nucor fully threaded bar data sheet Grade 80
-Nucor_G80_#18,Nucor Grade 80 Fully Threaded Bar #18,Solid threaded bar,Nucor Skyline,,#18,80,4.0,2.25,0.0,400,320.0,13.6,2.5,60,Nucor fully threaded bar data sheet Grade 80
-Nucor_G80_#20,Nucor Grade 80 Fully Threaded Bar #20,Solid threaded bar,Nucor Skyline,,#20,80,4.91,2.5,0.0,491,392.8,16.8,2.7,60,Nucor fully threaded bar data sheet Grade 80
-Nucor_G80_#24,Nucor Grade 80 Fully Threaded Bar #24,Solid threaded bar,Nucor Skyline,,#24,80,7.07,3.0,0.0,707,565.6,24.1,3.25,60,Nucor fully threaded bar data sheet Grade 80
-Nucor_G150_1.25,Nucor Grade 150 Fully Threaded Bar 1 1/4 in,Solid threaded bar,Nucor Skyline,,1 1/4 in,150,1.25,1.25,0.0,188,150,4.5,1.5,60,Nucor fully threaded bar data sheet Grade 150
-Nucor_G150_1.375,Nucor Grade 150 Fully Threaded Bar 1 3/8 in,Solid threaded bar,Nucor Skyline,,1 3/8 in,150,1.58,1.375,0.0,237,190,5.7,1.625,60,Nucor fully threaded bar data sheet Grade 150
-Nucor_G150_1.75,Nucor Grade 150 Fully Threaded Bar 1 3/4 in,Solid threaded bar,Nucor Skyline,,1 3/4 in,150,2.6,1.75,0.0,390,320,9.1,2.0,60,Nucor fully threaded bar data sheet Grade 150
-Nucor_G150_2.25,Nucor Grade 150 Fully Threaded Bar 2 1/4 in,Solid threaded bar,Nucor Skyline,,2 1/4 in,150,4.0,2.25,0.0,600,480,13.6,2.375,60,Nucor fully threaded bar data sheet Grade 150
-Nucor_G150_2.5,Nucor Grade 150 Fully Threaded Bar 2 1/2 in,Solid threaded bar,Nucor Skyline,,2 1/2 in,150,5.19,2.5,0.0,778,622,18.3,2.75,60,Nucor fully threaded bar data sheet Grade 150
-Nucor_G150_3.0,Nucor Grade 150 Fully Threaded Bar 3 in,Solid threaded bar,Nucor Skyline,,3 in,150,7.06,3.0,0.0,1059,847,24.0,3.25,60,Nucor fully threaded bar data sheet Grade 150
-CUSTOM_BAR,Custom Bar,Custom,User,,Custom,60,4.0,2.25,0.0,,,,,,User input
+BAR_001,Hollow Core Bar RB38/21 (HC3821B),Hollow core bar,,HC3821B,RB38/21,94,1.02,1.5,0.83,119.0,96.0,3.5,,,Manufacturer bar data / user database
+BAR_002,Hollow Core Bar RB51/32 (HC5132B),Hollow core bar,,HC5132B,RB51/32,98,1.58,2.01,1.26,189.0,155.0,5.4,,,Manufacturer bar data / user database
+BAR_003,Hollow Core Bar RB63/45 (HC6345B),Hollow core bar,,HC6345B,RB63/45,99,2.11,2.48,1.77,261.0,209.0,7.2,,,Manufacturer bar data / user database
+BAR_004,Hollow Core Bar RB76/56 (HC7656B),Hollow core bar,,HC7656B,RB76/56,86,2.88,2.99,2.2,310.0,247.0,9.8,,,Manufacturer bar data / user database
+BAR_005,Hollow Core Bar TB103/79 (HC10379B),Hollow core bar,,HC10379B,TB103/79,75,3.91,4.06,3.11,360.0,289.0,13.3,,,Manufacturer bar data / user database
+BAR_006,Hollow Core Bar TB103/75 (HC10375B),Hollow core bar,,HC10375B,TB103/75,75,4.78,4.06,2.95,445.0,358.0,16.3,,,Manufacturer bar data / user database
+BAR_007,Hollow Core Bar TB103/51 (HC10351B),Hollow core bar,,HC10351B,TB103/51,70,8.54,4.06,2.01,823.0,600.0,29.1,,,Manufacturer bar data / user database
+BAR_008,Hollow Core Bar TB130/90 (HC13090B),Hollow core bar,,HC13090B,TB130/90,75,9.58,5.12,3.54,900.0,720.0,32.6,,,Manufacturer bar data / user database
+BAR_009,Hollow Core Bar TB130/85 (HC13085B),Hollow core bar,,HC13085B,TB130/85,74,10.71,5.12,3.35,1034.0,788.0,36.5,,,Manufacturer bar data / user database
+BAR_010,Hollow Core Bar TB130/60 (HC13060B),Hollow core bar,,HC13060B,TB130/60,78,15.19,5.12,2.36,1785.0,1180.0,51.7,,,Manufacturer bar data / user database
+BAR_011,Hollow Core Bar TB135/82 (HC13582B),Hollow core bar,,HC13582B,TB135/82,75,13.02,5.31,3.23,1214.0,971.0,44.3,,,Manufacturer bar data / user database
+BAR_012,Solid Threaded Bar #6 Gr. 80,Solid threaded bar,,,#6,80,0.44,0.75,0.0,44.0,35.2,1.5,0.86,60.0,Manufacturer bar data / user database
+BAR_013,Solid Threaded Bar #7 Gr. 80,Solid threaded bar,,,#7,80,0.6,0.875,0.0,60.0,48.0,2.0,0.99,60.0,Manufacturer bar data / user database
+BAR_014,Solid Threaded Bar #8 Gr. 80,Solid threaded bar,,,#8,80,0.79,1.0,0.0,79.0,63.2,2.7,1.12,60.0,Manufacturer bar data / user database
+BAR_015,Solid Threaded Bar #9 Gr. 80,Solid threaded bar,,,#9,80,1.0,1.125,0.0,100.0,80.0,3.4,1.26,60.0,Manufacturer bar data / user database
+BAR_016,Solid Threaded Bar #10 Gr. 80,Solid threaded bar,,,#10,80,1.27,1.25,0.0,127.0,101.6,4.3,1.43,60.0,Manufacturer bar data / user database
+BAR_017,Solid Threaded Bar #11 Gr. 80,Solid threaded bar,,,#11,80,1.56,1.375,0.0,156.0,124.8,5.3,1.61,60.0,Manufacturer bar data / user database
+BAR_018,Solid Threaded Bar #14 Gr. 80,Solid threaded bar,,,#14,80,2.25,1.75,0.0,225.0,180.0,7.7,1.86,60.0,Manufacturer bar data / user database
+BAR_019,Solid Threaded Bar #18 Gr. 80,Solid threaded bar,,,#18,80,4.0,2.25,0.0,400.0,320.0,13.6,2.5,60.0,Manufacturer bar data / user database
+BAR_020,Solid Threaded Bar #20 Gr. 80,Solid threaded bar,,,#20,80,4.91,2.5,0.0,491.0,392.8,16.8,2.7,60.0,Manufacturer bar data / user database
+BAR_021,Solid Threaded Bar #24 Gr. 80,Solid threaded bar,,,#24,80,7.07,3.0,0.0,707.0,565.6,24.1,3.25,60.0,Manufacturer bar data / user database
+BAR_022,Solid Threaded Bar 1 1/4 in Gr. 150,Solid threaded bar,,,1 1/4 in,150,1.25,1.25,0.0,188.0,150.0,4.5,1.5,60.0,Manufacturer bar data / user database
+BAR_023,Solid Threaded Bar 1 3/8 in Gr. 150,Solid threaded bar,,,1 3/8 in,150,1.58,1.375,0.0,237.0,190.0,5.7,1.625,60.0,Manufacturer bar data / user database
+BAR_024,Solid Threaded Bar 1 3/4 in Gr. 150,Solid threaded bar,,,1 3/4 in,150,2.6,1.75,0.0,390.0,320.0,9.1,2.0,60.0,Manufacturer bar data / user database
+BAR_025,Solid Threaded Bar 2 1/4 in Gr. 150,Solid threaded bar,,,2 1/4 in,150,4.0,2.25,0.0,600.0,480.0,13.6,2.375,60.0,Manufacturer bar data / user database
+BAR_026,Solid Threaded Bar 2 1/2 in Gr. 150,Solid threaded bar,,,2 1/2 in,150,5.19,2.5,0.0,778.0,622.0,18.3,2.75,60.0,Manufacturer bar data / user database
+BAR_027,Solid Threaded Bar 3 in Gr. 150,Solid threaded bar,,,3 in,150,7.06,3.0,0.0,1059.0,847.0,24.0,3.25,60.0,Manufacturer bar data / user database
+CUSTOM_BAR,Custom Bar,Custom,,,Custom,60,4.0,2.25,0.0,,,,,,Manufacturer bar data / user database

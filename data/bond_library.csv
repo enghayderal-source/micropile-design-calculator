@@ -1,30 +1,30 @@
 soil_rock_description,grout_type,alpha_low_psi,alpha_mid_psi,alpha_high_psi,source
-Silt & Clay - soft/medium plastic,A,5,7.5,10,FHWA Table 5-3 ultimate bond
-Silt & Clay - soft/medium plastic,B,5,9.5,14,FHWA Table 5-3 ultimate bond
-Silt & Clay - soft/medium plastic,C,5,11.25,17.5,FHWA Table 5-3 ultimate bond
-Silt & Clay - soft/medium plastic,D,5,13,21,FHWA Table 5-3 ultimate bond
-Silt & Clay - stiff/dense to very dense,A,5,11.25,17.5,FHWA Table 5-3 ultimate bond
-Silt & Clay - stiff/dense to very dense,B,10,18.75,27.5,FHWA Table 5-3 ultimate bond
-Silt & Clay - stiff/dense to very dense,C,14,20.75,27.5,FHWA Table 5-3 ultimate bond
-Silt & Clay - stiff/dense to very dense,D,14,20.75,27.5,FHWA Table 5-3 ultimate bond
-Sand - fine loose to medium dense,A,10,15.5,21,FHWA Table 5-3 ultimate bond
-Sand - fine loose to medium dense,B,10,18.75,27.5,FHWA Table 5-3 ultimate bond
-Sand - fine loose to medium dense,C,14,20.75,27.5,FHWA Table 5-3 ultimate bond
-Sand - fine loose to medium dense,D,14,24.5,35,FHWA Table 5-3 ultimate bond
-Sand w/silt/gravel - medium to very dense,A,14,22.5,31,FHWA Table 5-3 ultimate bond
-Sand w/silt/gravel - medium to very dense,B,17.5,34.75,52,FHWA Table 5-3 ultimate bond
-Sand w/silt/gravel - medium to very dense,C,21,36.5,52,FHWA Table 5-3 ultimate bond
-Sand w/silt/gravel - medium to very dense,D,21,38.5,56,FHWA Table 5-3 ultimate bond
-Gravel w/sand - medium to very dense,A,14,26.25,38.5,FHWA Table 5-3 ultimate bond
-Gravel w/sand - medium to very dense,B,17.5,34.75,52,FHWA Table 5-3 ultimate bond
-Gravel w/sand - medium to very dense,C,21,36.5,52,FHWA Table 5-3 ultimate bond
-Gravel w/sand - medium to very dense,D,21,38.5,56,FHWA Table 5-3 ultimate bond
-Glacial till - medium/very dense cemented,A,14,20.75,27.5,FHWA Table 5-3 ultimate bond
-Glacial till - medium/very dense cemented,B,14,29.5,45,FHWA Table 5-3 ultimate bond
-Glacial till - medium/very dense cemented,C,17.5,31.25,45,FHWA Table 5-3 ultimate bond
-Glacial till - medium/very dense cemented,D,17.5,33,48.5,FHWA Table 5-3 ultimate bond
-Soft shale - fresh/moderate fracture,A,30,55,80,FHWA Table 5-3 ultimate bond
-Slate & hard shale - fresh/moderate fracture,A,75,137.5,200,FHWA Table 5-3 ultimate bond
-Limestone - fresh/moderate fracture,A,150,225,300,FHWA Table 5-3 ultimate bond
-Sandstone - fresh/moderate fracture,A,75.5,162.75,250,FHWA Table 5-3 ultimate bond
-Granite/basalt - fresh/moderate fracture,A,200,404.5,609,FHWA Table 5-3 ultimate bond
+Silt & Clay - soft/medium plastic,A,5.0,7.5,10.0,FHWA Table 5-3 ultimate bond
+Silt & Clay - soft/medium plastic,B,5.0,9.5,14.0,FHWA Table 5-3 ultimate bond
+Silt & Clay - soft/medium plastic,C,5.0,11.25,17.5,FHWA Table 5-3 ultimate bond
+Silt & Clay - soft/medium plastic,D,5.0,13.0,21.0,FHWA Table 5-3 ultimate bond
+Silt & Clay - stiff/dense to very dense,A,5.0,11.25,17.5,FHWA Table 5-3 ultimate bond
+Silt & Clay - stiff/dense to very dense,B,10.0,18.75,27.5,FHWA Table 5-3 ultimate bond
+Silt & Clay - stiff/dense to very dense,C,14.0,20.75,27.5,FHWA Table 5-3 ultimate bond
+Silt & Clay - stiff/dense to very dense,D,14.0,20.75,27.5,FHWA Table 5-3 ultimate bond
+Sand - fine loose to medium dense,A,10.0,15.5,21.0,FHWA Table 5-3 ultimate bond
+Sand - fine loose to medium dense,B,10.0,18.75,27.5,FHWA Table 5-3 ultimate bond
+Sand - fine loose to medium dense,C,14.0,20.75,27.5,FHWA Table 5-3 ultimate bond
+Sand - fine loose to medium dense,D,14.0,24.5,35.0,FHWA Table 5-3 ultimate bond
+Sand w/silt/gravel - medium to very dense,A,14.0,22.5,31.0,FHWA Table 5-3 ultimate bond
+Sand w/silt/gravel - medium to very dense,B,17.5,34.75,52.0,FHWA Table 5-3 ultimate bond
+Sand w/silt/gravel - medium to very dense,C,21.0,36.5,52.0,FHWA Table 5-3 ultimate bond
+Sand w/silt/gravel - medium to very dense,D,21.0,38.5,56.0,FHWA Table 5-3 ultimate bond
+Gravel w/sand - medium to very dense,A,14.0,26.25,38.5,FHWA Table 5-3 ultimate bond
+Gravel w/sand - medium to very dense,B,17.5,34.75,52.0,FHWA Table 5-3 ultimate bond
+Gravel w/sand - medium to very dense,C,21.0,36.5,52.0,FHWA Table 5-3 ultimate bond
+Gravel w/sand - medium to very dense,D,21.0,38.5,56.0,FHWA Table 5-3 ultimate bond
+Glacial till - medium/very dense cemented,A,14.0,20.75,27.5,FHWA Table 5-3 ultimate bond
+Glacial till - medium/very dense cemented,B,14.0,29.5,45.0,FHWA Table 5-3 ultimate bond
+Glacial till - medium/very dense cemented,C,17.5,31.25,45.0,FHWA Table 5-3 ultimate bond
+Glacial till - medium/very dense cemented,D,17.5,33.0,48.5,FHWA Table 5-3 ultimate bond
+Soft shale - fresh/moderate fracture,A,30.0,55.0,80.0,FHWA Table 5-3 ultimate bond
+Slate & hard shale - fresh/moderate fracture,A,75.0,137.5,200.0,FHWA Table 5-3 ultimate bond
+Limestone - fresh/moderate fracture,A,150.0,225.0,300.0,FHWA Table 5-3 ultimate bond
+Sandstone - fresh/moderate fracture,A,75.5,162.75,250.0,FHWA Table 5-3 ultimate bond
+Granite/basalt - fresh/moderate fracture,A,200.0,404.5,609.0,FHWA Table 5-3 ultimate bond

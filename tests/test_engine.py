@@ -2,7 +2,7 @@ from micropile_calc_engine import Bar, Casing, BarGroup, SoilLayer, MicropileInp
 
 
 def test_multilayer_bond_accumulates_after_casing_end():
-    bar = Bar('Nucor #20', 'Solid threaded bar', 4.91, 2.5, 0, 80)
+    bar = Bar('Solid #20', 'Solid threaded bar', 4.91, 2.5, 0, 80)
     casing = Casing('9 5/8 x 0.5', 9.625, 0.5, 80)
     layers = [
         SoilLayer(0, 'Fill', 0, 20, 'Fill', 'A', 10, 10, 2, 2, 5, 5),

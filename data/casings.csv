@@ -1,9 +1,82 @@
-name,od_in,wall_in,fy_ksi,source
-No casing,0,0,0,User selected no casing
-5.5 in OD x 0.415 in wall,5.5,0.415,80,FHWA sample/common casing
-7.0 in OD x 0.500 in wall,7.0,0.500,80,FHWA common casing
-7.625 in OD x 0.500 in wall,7.625,0.500,50,Common casing option; verify actual product data
-9.625 in OD x 0.500 in wall,9.625,0.500,50,Common casing option; verify actual product data
-9.625 in OD x 0.545 in wall,9.625,0.545,80,Common casing option
-10.75 in OD x 0.500 in wall,10.75,0.500,50,Common casing option
-Custom Casing,9.625,0.500,50,User input
+casing_id,name,supplier,od_in,wall_in,id_in,area_in2,weight_lbft,fy_ksi,I_in4,S_in3,r_in,internal_area_in2,source
+NO_CASING,No casing,None,0,0,0,0,0,0,0,0,0,0,User selected no casing
+NUCOR_PIPE_2p375x0p109,Nucor A252 Pipe 2 3/8 in OD x 0.109 in wall,Nucor Skyline,2.375,0.109,2.16,0.78,2.64,65.0,0.5,0.42,1.8,3.65,Nucor steel pipe data sheet
+NUCOR_PIPE_2p375x0p154,Nucor A252 Pipe 2 3/8 in OD x 0.154 in wall,Nucor Skyline,2.375,0.154,2.07,1.08,3.66,65.0,0.67,0.56,1.78,3.36,Nucor steel pipe data sheet
+NUCOR_PIPE_2p375x0p188,Nucor A252 Pipe 2 3/8 in OD x 0.188 in wall,Nucor Skyline,2.375,0.188,2.0,1.29,4.4,65.0,0.78,0.66,1.76,3.14,Nucor steel pipe data sheet
+NUCOR_PIPE_2p375x0p218,Nucor A252 Pipe 2 3/8 in OD x 0.218 in wall,Nucor Skyline,2.375,0.218,1.94,1.48,5.03,65.0,0.87,0.73,1.75,2.95,Nucor steel pipe data sheet
+NUCOR_PIPE_2p875x0p120,Nucor A252 Pipe 2 7/8 in OD x 0.120 in wall,Nucor Skyline,2.875,0.12,2.64,1.04,3.53,60.0,0.99,0.69,1.84,5.45,Nucor steel pipe data sheet
+NUCOR_PIPE_2p875x0p188,Nucor A252 Pipe 2 7/8 in OD x 0.188 in wall,Nucor Skyline,2.875,0.188,2.5,1.59,5.4,60.0,1.44,1.0,1.81,4.91,Nucor steel pipe data sheet
+NUCOR_PIPE_2p875x0p203,Nucor A252 Pipe 2 7/8 in OD x 0.203 in wall,Nucor Skyline,2.875,0.203,2.47,1.7,5.8,65.0,1.53,1.06,1.8,4.79,Nucor steel pipe data sheet
+NUCOR_PIPE_2p875x0p219,Nucor A252 Pipe 2 7/8 in OD x 0.219 in wall,Nucor Skyline,2.875,0.219,2.44,1.83,6.22,65.0,1.62,1.13,1.79,4.66,Nucor steel pipe data sheet
+NUCOR_PIPE_2p875x0p276,Nucor A252 Pipe 2 7/8 in OD x 0.276 in wall,Nucor Skyline,2.875,0.276,2.32,2.25,7.67,70.0,1.92,1.34,1.77,4.24,Nucor steel pipe data sheet
+NUCOR_PIPE_3p500x0p120,Nucor A252 Pipe 3 1/2 in OD x 0.120 in wall,Nucor Skyline,3.5,0.12,3.26,1.27,4.34,60.0,1.82,1.04,1.9,8.35,Nucor steel pipe data sheet
+NUCOR_PIPE_3p500x0p188,Nucor A252 Pipe 3 1/2 in OD x 0.188 in wall,Nucor Skyline,3.5,0.188,3.12,1.96,6.66,60.0,2.69,1.54,1.87,7.67,Nucor steel pipe data sheet
+NUCOR_PIPE_3p500x0p203,Nucor A252 Pipe 3 1/2 in OD x 0.203 in wall,Nucor Skyline,3.5,0.203,3.09,2.1,7.16,65.0,2.87,1.64,1.87,7.52,Nucor steel pipe data sheet
+NUCOR_PIPE_3p500x0p219,Nucor A252 Pipe 3 1/2 in OD x 0.219 in wall,Nucor Skyline,3.5,0.219,3.06,2.26,7.68,65.0,3.05,1.74,1.86,7.36,Nucor steel pipe data sheet
+NUCOR_PIPE_3p500x0p276,Nucor A252 Pipe 3 1/2 in OD x 0.276 in wall,Nucor Skyline,3.5,0.276,2.95,2.8,9.51,70.0,3.66,2.09,1.83,6.83,Nucor steel pipe data sheet
+NUCOR_PIPE_4p500x0p120,Nucor A252 Pipe 4 1/2 in OD x 0.120 in wall,Nucor Skyline,4.5,0.12,4.26,1.65,5.62,60.0,3.96,1.76,2.03,14.25,Nucor steel pipe data sheet
+NUCOR_PIPE_4p500x0p188,Nucor A252 Pipe 4 1/2 in OD x 0.188 in wall,Nucor Skyline,4.5,0.188,4.12,2.55,8.67,65.0,5.93,2.64,2.0,13.36,Nucor steel pipe data sheet
+NUCOR_PIPE_4p500x0p237,Nucor A252 Pipe 4 1/2 in OD x 0.237 in wall,Nucor Skyline,4.5,0.237,4.03,3.17,10.8,65.0,7.23,3.21,1.98,12.73,Nucor steel pipe data sheet
+NUCOR_PIPE_4p500x0p337,Nucor A252 Pipe 4 1/2 in OD x 0.337 in wall,Nucor Skyline,4.5,0.337,3.83,4.41,15.0,65.0,9.61,4.27,1.94,11.5,Nucor steel pipe data sheet
+NUCOR_PIPE_4p500x0p375,Nucor A252 Pipe 4 1/2 in OD x 0.375 in wall,Nucor Skyline,4.5,0.375,3.75,4.86,16.54,65.0,10.42,4.63,1.93,11.04,Nucor steel pipe data sheet
+NUCOR_PIPE_6p625x0p188,Nucor A252 Pipe 6 5/8 in OD x 0.188 in wall,Nucor Skyline,6.625,0.188,6.25,3.8,12.94,60.0,19.71,6.0,2.28,30.67,Nucor steel pipe data sheet
+NUCOR_PIPE_6p625x0p280,Nucor A252 Pipe 6 5/8 in OD x 0.280 in wall,Nucor Skyline,6.625,0.28,6.07,5.58,18.99,65.0,28.14,8.5,2.25,28.89,Nucor steel pipe data sheet
+NUCOR_PIPE_6p625x0p375,Nucor A252 Pipe 6 5/8 in OD x 0.375 in wall,Nucor Skyline,6.625,0.375,5.88,7.36,25.06,65.0,36.08,10.89,2.21,27.11,Nucor steel pipe data sheet
+NUCOR_PIPE_6p625x0p432,Nucor A252 Pipe 6 5/8 in OD x 0.432 in wall,Nucor Skyline,6.625,0.432,5.76,8.41,28.6,70.0,40.49,12.2,2.2,26.07,Nucor steel pipe data sheet
+NUCOR_PIPE_6p625x0p500,Nucor A252 Pipe 6 5/8 in OD x 0.500 in wall,Nucor Skyline,6.625,0.5,5.63,9.62,32.74,70.0,45.42,13.71,2.17,24.85,Nucor steel pipe data sheet
+NUCOR_PIPE_6p625x0p562,Nucor A252 Pipe 6 5/8 in OD x 0.562 in wall,Nucor Skyline,6.625,0.562,5.5,10.7,36.43,75.0,49.61,14.98,2.15,23.77,Nucor steel pipe data sheet
+NUCOR_PIPE_7p000x0p250,Nucor A252 Pipe 7 in OD x 0.250 in wall,Nucor Skyline,7.0,0.25,6.5,5.3,18.04,65.0,30.23,8.6,2.39,33.18,Nucor steel pipe data sheet
+NUCOR_PIPE_7p000x0p312,Nucor A252 Pipe 7 in OD x 0.312 in wall,Nucor Skyline,7.0,0.312,6.38,6.56,22.31,65.0,36.73,10.49,2.37,31.93,Nucor steel pipe data sheet
+NUCOR_PIPE_7p000x0p375,Nucor A252 Pipe 7 in OD x 0.375 in wall,Nucor Skyline,7.0,0.375,6.25,7.81,26.56,65.0,42.96,12.27,2.35,30.68,Nucor steel pipe data sheet
+NUCOR_PIPE_7p000x0p500,Nucor A252 Pipe 7 in OD x 0.500 in wall,Nucor Skyline,7.0,0.5,6.0,10.21,34.74,65.0,54.24,15.5,2.31,28.27,Nucor steel pipe data sheet
+NUCOR_PIPE_7p000x0p562,Nucor A252 Pipe 7 in OD x 0.562 in wall,Nucor Skyline,7.0,0.562,5.88,11.37,38.68,65.0,59.34,16.95,2.29,27.12,Nucor steel pipe data sheet
+NUCOR_PIPE_8p625x0p188,Nucor A252 Pipe 8 5/8 in OD x 0.188 in wall,Nucor Skyline,8.625,0.188,8.25,4.98,16.96,70.0,44.36,10.29,2.98,53.44,Nucor steel pipe data sheet
+NUCOR_PIPE_8p625x0p250,Nucor A252 Pipe 8 5/8 in OD x 0.250 in wall,Nucor Skyline,8.625,0.25,8.13,6.58,22.38,70.0,57.72,13.38,2.96,51.85,Nucor steel pipe data sheet
+NUCOR_PIPE_8p625x0p322,Nucor A252 Pipe 8 5/8 in OD x 0.322 in wall,Nucor Skyline,8.625,0.322,7.98,8.4,28.58,70.0,72.49,16.81,2.94,50.03,Nucor steel pipe data sheet
+NUCOR_PIPE_8p625x0p375,Nucor A252 Pipe 8 5/8 in OD x 0.375 in wall,Nucor Skyline,8.625,0.375,7.88,9.72,33.07,70.0,82.86,19.21,2.92,48.71,Nucor steel pipe data sheet
+NUCOR_PIPE_8p625x0p500,Nucor A252 Pipe 8 5/8 in OD x 0.500 in wall,Nucor Skyline,8.625,0.5,7.63,12.76,43.43,70.0,105.7,24.51,2.88,45.66,Nucor steel pipe data sheet
+NUCOR_PIPE_8p625x0p533,Nucor A252 Pipe 8 5/8 in OD x 0.533 in wall,Nucor Skyline,8.625,0.533,7.56,13.55,46.11,70.0,111.4,25.83,2.87,44.88,Nucor steel pipe data sheet
+NUCOR_PIPE_8p625x0p625,Nucor A252 Pipe 8 5/8 in OD x 0.625 in wall,Nucor Skyline,8.625,0.625,7.38,15.71,53.45,65.0,126.4,29.32,2.84,42.72,Nucor steel pipe data sheet
+NUCOR_PIPE_9p625x0p250,Nucor A252 Pipe 9 5/8 in OD x 0.250 in wall,Nucor Skyline,9.625,0.25,9.13,7.36,25.06,70.0,81.95,16.82,3.32,65.4,Nucor steel pipe data sheet
+NUCOR_PIPE_9p625x0p312,Nucor A252 Pipe 9 5/8 in OD x 0.312 in wall,Nucor Skyline,9.625,0.312,9.0,9.13,31.06,70.0,99.08,20.59,3.29,63.63,Nucor steel pipe data sheet
+NUCOR_PIPE_9p625x0p375,Nucor A252 Pipe 9 5/8 in OD x 0.375 in wall,Nucor Skyline,9.625,0.375,8.88,10.9,37.08,70.0,116.7,24.26,3.27,61.86,Nucor steel pipe data sheet
+NUCOR_PIPE_9p625x0p500,Nucor A252 Pipe 9 5/8 in OD x 0.500 in wall,Nucor Skyline,9.625,0.5,8.63,14.33,48.77,80.0,149.6,31.09,3.23,58.43,Nucor steel pipe data sheet
+NUCOR_PIPE_9p625x0p545,Nucor A252 Pipe 9 5/8 in OD x 0.545 in wall,Nucor Skyline,9.625,0.545,8.54,15.55,52.9,85.0,160.8,33.41,3.22,57.21,Nucor steel pipe data sheet
+NUCOR_PIPE_10p750x0p250,Nucor A252 Pipe 10 3/4 in OD x 0.250 in wall,Nucor Skyline,10.75,0.25,10.25,8.25,28.06,65.0,113.7,21.16,3.71,82.52,Nucor steel pipe data sheet
+NUCOR_PIPE_10p750x0p312,Nucor A252 Pipe 10 3/4 in OD x 0.312 in wall,Nucor Skyline,10.75,0.312,10.13,10.23,34.81,65.0,139.5,25.95,3.69,80.53,Nucor steel pipe data sheet
+NUCOR_PIPE_10p750x0p375,Nucor A252 Pipe 10 3/4 in OD x 0.375 in wall,Nucor Skyline,10.75,0.375,10.0,12.22,41.59,65.0,164.7,30.64,3.67,78.54,Nucor steel pipe data sheet
+NUCOR_PIPE_10p750x0p500,Nucor A252 Pipe 10 3/4 in OD x 0.500 in wall,Nucor Skyline,10.75,0.5,9.75,16.1,54.79,65.0,212.0,39.43,3.63,74.66,Nucor steel pipe data sheet
+NUCOR_PIPE_10p750x0p593,Nucor A252 Pipe 10 3/4 in OD x 0.593 in wall,Nucor Skyline,10.75,0.593,9.56,18.92,64.39,65.0,244.8,45.55,3.6,71.84,Nucor steel pipe data sheet
+NUCOR_PIPE_12p000x0p250,Nucor A252 Pipe 12 in OD x 0.250 in wall,Nucor Skyline,12.0,0.25,11.5,9.23,31.4,60.0,159.3,26.56,4.16,103.9,Nucor steel pipe data sheet
+NUCOR_PIPE_12p000x0p312,Nucor A252 Pipe 12 in OD x 0.312 in wall,Nucor Skyline,12.0,0.312,11.38,11.46,38.98,60.0,195.8,32.63,4.13,101.6,Nucor steel pipe data sheet
+NUCOR_PIPE_12p000x0p335,Nucor A252 Pipe 12 in OD x 0.335 in wall,Nucor Skyline,12.0,0.335,11.33,12.28,41.77,60.0,209.0,34.83,4.13,100.8,Nucor steel pipe data sheet
+NUCOR_PIPE_12p000x0p375,Nucor A252 Pipe 12 in OD x 0.375 in wall,Nucor Skyline,12.0,0.375,11.25,13.7,46.6,60.0,231.6,38.6,4.11,99.4,Nucor steel pipe data sheet
+NUCOR_PIPE_12p000x0p500,Nucor A252 Pipe 12 in OD x 0.500 in wall,Nucor Skyline,12.0,0.5,11.0,18.06,61.47,60.0,299.2,49.86,4.07,95.03,Nucor steel pipe data sheet
+NUCOR_PIPE_12p000x0p625,Nucor A252 Pipe 12 in OD x 0.625 in wall,Nucor Skyline,12.0,0.625,10.75,22.33,76.0,60.0,362.3,60.39,4.03,90.76,Nucor steel pipe data sheet
+NUCOR_PIPE_12p750x0p250,Nucor A252 Pipe 12 3/4 in OD x 0.250 in wall,Nucor Skyline,12.75,0.25,12.25,9.82,33.41,70.0,191.8,30.09,4.42,117.9,Nucor steel pipe data sheet
+NUCOR_PIPE_12p750x0p312,Nucor A252 Pipe 12 3/4 in OD x 0.312 in wall,Nucor Skyline,12.75,0.312,12.13,12.19,41.48,70.0,235.9,37.0,4.4,115.5,Nucor steel pipe data sheet
+NUCOR_PIPE_12p750x0p375,Nucor A252 Pipe 12 3/4 in OD x 0.375 in wall,Nucor Skyline,12.75,0.375,12.0,14.58,49.61,70.0,279.3,43.82,4.38,113.1,Nucor steel pipe data sheet
+NUCOR_PIPE_12p750x0p394,Nucor A252 Pipe 12 3/4 in OD x 0.394 in wall,Nucor Skyline,12.75,0.394,11.96,15.29,52.04,70.0,292.2,45.83,4.37,112.4,Nucor steel pipe data sheet
+NUCOR_PIPE_12p750x0p406,Nucor A252 Pipe 12 3/4 in OD x 0.406 in wall,Nucor Skyline,12.75,0.406,11.94,15.74,53.58,70.0,300.2,47.09,4.37,111.9,Nucor steel pipe data sheet
+NUCOR_PIPE_12p750x0p500,Nucor A252 Pipe 12 3/4 in OD x 0.500 in wall,Nucor Skyline,12.75,0.5,11.75,19.24,65.48,70.0,361.5,56.7,4.34,108.4,Nucor steel pipe data sheet
+NUCOR_PIPE_12p750x0p525,Nucor A252 Pipe 12 3/4 in OD x 0.525 in wall,Nucor Skyline,12.75,0.525,11.7,20.16,68.61,70.0,377.4,59.2,4.33,107.5,Nucor steel pipe data sheet
+NUCOR_PIPE_12p750x0p687,Nucor A252 Pipe 12 3/4 in OD x 0.687 in wall,Nucor Skyline,12.75,0.687,11.38,26.04,88.59,70.0,475.1,74.53,4.27,101.6,Nucor steel pipe data sheet
+NUCOR_PIPE_14p000x0p219,Nucor A252 Pipe 14 in OD x 0.219 in wall,Nucor Skyline,14.0,0.219,13.56,9.48,32.26,70.0,225.1,32.16,4.87,144.5,Nucor steel pipe data sheet
+NUCOR_PIPE_14p000x0p250,Nucor A252 Pipe 14 in OD x 0.250 in wall,Nucor Skyline,14.0,0.25,13.5,10.8,36.75,70.0,255.3,36.47,4.86,143.1,Nucor steel pipe data sheet
+NUCOR_PIPE_14p000x0p312,Nucor A252 Pipe 14 in OD x 0.312 in wall,Nucor Skyline,14.0,0.312,13.38,13.42,45.65,70.0,314.4,44.91,4.84,140.5,Nucor steel pipe data sheet
+NUCOR_PIPE_14p000x0p375,Nucor A252 Pipe 14 in OD x 0.375 in wall,Nucor Skyline,14.0,0.375,13.25,16.05,54.62,70.0,372.8,53.25,4.82,137.9,Nucor steel pipe data sheet
+NUCOR_PIPE_14p000x0p438,Nucor A252 Pipe 14 in OD x 0.438 in wall,Nucor Skyline,14.0,0.438,13.12,18.66,63.5,70.0,429.5,61.36,4.8,135.3,Nucor steel pipe data sheet
+NUCOR_PIPE_14p000x0p500,Nucor A252 Pipe 14 in OD x 0.500 in wall,Nucor Skyline,14.0,0.5,13.0,21.21,72.16,70.0,483.8,69.11,4.78,132.7,Nucor steel pipe data sheet
+NUCOR_PIPE_14p000x0p625,Nucor A252 Pipe 14 in OD x 0.625 in wall,Nucor Skyline,14.0,0.625,12.75,26.26,89.36,70.0,588.5,84.08,4.73,127.7,Nucor steel pipe data sheet
+NUCOR_PIPE_16p000x0p250,Nucor A252 Pipe 16 in OD x 0.250 in wall,Nucor Skyline,16.0,0.25,15.5,12.37,42.09,70.0,383.7,47.96,5.57,188.7,Nucor steel pipe data sheet
+NUCOR_PIPE_16p000x0p312,Nucor A252 Pipe 16 in OD x 0.312 in wall,Nucor Skyline,16.0,0.312,15.38,15.38,52.32,70.0,473.2,59.16,5.55,185.7,Nucor steel pipe data sheet
+NUCOR_PIPE_16p000x0p375,Nucor A252 Pipe 16 in OD x 0.375 in wall,Nucor Skyline,16.0,0.375,15.25,18.41,62.64,70.0,562.1,70.26,5.53,182.7,Nucor steel pipe data sheet
+NUCOR_PIPE_16p000x0p406,Nucor A252 Pipe 16 in OD x 0.406 in wall,Nucor Skyline,16.0,0.406,15.19,19.89,67.68,70.0,605.0,75.62,5.52,181.2,Nucor steel pipe data sheet
+NUCOR_PIPE_16p000x0p500,Nucor A252 Pipe 16 in OD x 0.500 in wall,Nucor Skyline,16.0,0.5,15.0,24.35,82.85,70.0,731.9,91.49,5.48,176.7,Nucor steel pipe data sheet
+NUCOR_PIPE_16p000x0p625,Nucor A252 Pipe 16 in OD x 0.625 in wall,Nucor Skyline,16.0,0.625,14.75,30.19,102.7,70.0,893.5,111.7,5.44,170.9,Nucor steel pipe data sheet
+NUCOR_PIPE_18p000x0p250,Nucor A252 Pipe 18 in OD x 0.250 in wall,Nucor Skyline,18.0,0.25,17.5,13.94,47.44,60.0,549.1,61.02,6.28,240.5,Nucor steel pipe data sheet
+NUCOR_PIPE_18p000x0p312,Nucor A252 Pipe 18 in OD x 0.312 in wall,Nucor Skyline,18.0,0.312,17.38,17.34,59.0,60.0,678.2,75.36,6.25,237.1,Nucor steel pipe data sheet
+NUCOR_PIPE_18p000x0p375,Nucor A252 Pipe 18 in OD x 0.375 in wall,Nucor Skyline,18.0,0.375,17.25,20.76,70.66,60.0,806.6,89.63,6.23,233.71,Nucor steel pipe data sheet
+NUCOR_PIPE_18p000x0p500,Nucor A252 Pipe 18 in OD x 0.500 in wall,Nucor Skyline,18.0,0.5,17.0,27.49,93.54,60.0,1053.0,117.0,6.19,227.0,Nucor steel pipe data sheet
+NUCOR_PIPE_18p000x0p625,Nucor A252 Pipe 18 in OD x 0.625 in wall,Nucor Skyline,18.0,0.625,16.75,34.12,116.1,60.0,1289.0,143.2,6.15,220.4,Nucor steel pipe data sheet
+CUSTOM_CASING,Custom Casing,User,9.625,0.5,8.625,14.33,48.77,50,149.6,31.09,3.23,58.43,User input

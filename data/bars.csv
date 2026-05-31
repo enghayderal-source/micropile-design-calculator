@@ -1,15 +1,29 @@
-name,part_number,bar_size,area_in2,od_in,id_in,fy_ksi,ultimate_kips,yield_kips,source
-SSSI HC3821B / RB38/21,HC3821B,RB38/21,1.02,1.50,0.83,94,119,96,SSSI hollow core bar cut sheet
-SSSI HC5132B / RB51/32,HC5132B,RB51/32,1.58,2.01,1.26,98,189,155,SSSI hollow core bar cut sheet
-SSSI HC6345B / RB63/45,HC6345B,RB63/45,2.11,2.48,1.77,99,261,209,SSSI hollow core bar cut sheet
-SSSI HC7656B / RB76/56,HC7656B,RB76/56,2.88,2.99,2.20,86,310,247,SSSI hollow core bar cut sheet
-SSSI HC10379B / TB103/79,HC10379B,TB103/79,3.91,4.06,3.11,75,360,289,SSSI hollow core bar cut sheet
-SSSI HC10375B / TB103/75,HC10375B,TB103/75,4.78,4.06,2.95,75,445,358,SSSI hollow core bar cut sheet
-SSSI HC10351B / TB103/51,HC10351B,TB103/51,8.54,4.06,2.01,70,823,600,SSSI hollow core bar cut sheet
-SSSI HC13090B / TB130/90,HC13090B,TB130/90,9.58,5.12,3.54,75,900,720,SSSI hollow core bar cut sheet
-SSSI HC13085B / TB130/85,HC13085B,TB130/85,10.71,5.12,3.35,74,1034,788,SSSI hollow core bar cut sheet
-SSSI HC13060B / TB130/60,HC13060B,TB130/60,15.19,5.12,2.36,78,1785,1180,SSSI hollow core bar cut sheet
-SSSI HC13582B / TB135/82,HC13582B,TB135/82,13.02,5.31,3.23,75,1214,971,SSSI hollow core bar cut sheet
-No.18 Grade 60 Rebar,,No.18,4.00,2.257,0,60,,,Standard Grade 60 rebar nominal area; verify actual product data
-No.20 Grade 60 Rebar,,No.20,4.91,2.500,0,60,,,Standard Grade 60 rebar nominal area; verify actual product data
-Custom Bar,,Custom,4.90,2.50,0,60,,,User input
+bar_id,name,bar_type,supplier,part_number,designation,fy_ksi,area_in2,od_in,id_in,ultimate_kips,yield_kips,weight_lbft,major_thread_diameter_in,max_length_ft,source
+SSSI_HC3821B_RB38_21,SSSI HC3821B / RB38/21,Hollow core bar,SSSI,HC3821B,RB38/21,94,1.02,1.5,0.83,119,96,3.5,,,SSSI hollow core bar cut sheet
+SSSI_HC5132B_RB51_32,SSSI HC5132B / RB51/32,Hollow core bar,SSSI,HC5132B,RB51/32,98,1.58,2.01,1.26,189,155,5.4,,,SSSI hollow core bar cut sheet
+SSSI_HC6345B_RB63_45,SSSI HC6345B / RB63/45,Hollow core bar,SSSI,HC6345B,RB63/45,99,2.11,2.48,1.77,261,209,7.2,,,SSSI hollow core bar cut sheet
+SSSI_HC7656B_RB76_56,SSSI HC7656B / RB76/56,Hollow core bar,SSSI,HC7656B,RB76/56,86,2.88,2.99,2.2,310,247,9.8,,,SSSI hollow core bar cut sheet
+SSSI_HC10379B_TB103_79,SSSI HC10379B / TB103/79,Hollow core bar,SSSI,HC10379B,TB103/79,75,3.91,4.06,3.11,360,289,13.3,,,SSSI hollow core bar cut sheet
+SSSI_HC10375B_TB103_75,SSSI HC10375B / TB103/75,Hollow core bar,SSSI,HC10375B,TB103/75,75,4.78,4.06,2.95,445,358,16.3,,,SSSI hollow core bar cut sheet
+SSSI_HC10351B_TB103_51,SSSI HC10351B / TB103/51,Hollow core bar,SSSI,HC10351B,TB103/51,70,8.54,4.06,2.01,823,600,29.1,,,SSSI hollow core bar cut sheet
+SSSI_HC13090B_TB130_90,SSSI HC13090B / TB130/90,Hollow core bar,SSSI,HC13090B,TB130/90,75,9.58,5.12,3.54,900,720,32.6,,,SSSI hollow core bar cut sheet
+SSSI_HC13085B_TB130_85,SSSI HC13085B / TB130/85,Hollow core bar,SSSI,HC13085B,TB130/85,74,10.71,5.12,3.35,1034,788,36.5,,,SSSI hollow core bar cut sheet
+SSSI_HC13060B_TB130_60,SSSI HC13060B / TB130/60,Hollow core bar,SSSI,HC13060B,TB130/60,78,15.19,5.12,2.36,1785,1180,51.7,,,SSSI hollow core bar cut sheet
+SSSI_HC13582B_TB135_82,SSSI HC13582B / TB135/82,Hollow core bar,SSSI,HC13582B,TB135/82,75,13.02,5.31,3.23,1214,971,44.3,,,SSSI hollow core bar cut sheet
+Nucor_G80_#6,Nucor Grade 80 Fully Threaded Bar #6,Solid threaded bar,Nucor Skyline,,#6,80,0.44,0.75,0.0,44,35.2,1.5,0.86,60,Nucor fully threaded bar data sheet Grade 80
+Nucor_G80_#7,Nucor Grade 80 Fully Threaded Bar #7,Solid threaded bar,Nucor Skyline,,#7,80,0.6,0.875,0.0,60,48.0,2.0,0.99,60,Nucor fully threaded bar data sheet Grade 80
+Nucor_G80_#8,Nucor Grade 80 Fully Threaded Bar #8,Solid threaded bar,Nucor Skyline,,#8,80,0.79,1.0,0.0,79,63.2,2.7,1.12,60,Nucor fully threaded bar data sheet Grade 80
+Nucor_G80_#9,Nucor Grade 80 Fully Threaded Bar #9,Solid threaded bar,Nucor Skyline,,#9,80,1.0,1.125,0.0,100,80.0,3.4,1.26,60,Nucor fully threaded bar data sheet Grade 80
+Nucor_G80_#10,Nucor Grade 80 Fully Threaded Bar #10,Solid threaded bar,Nucor Skyline,,#10,80,1.27,1.25,0.0,127,101.6,4.3,1.43,60,Nucor fully threaded bar data sheet Grade 80
+Nucor_G80_#11,Nucor Grade 80 Fully Threaded Bar #11,Solid threaded bar,Nucor Skyline,,#11,80,1.56,1.375,0.0,156,124.8,5.3,1.61,60,Nucor fully threaded bar data sheet Grade 80
+Nucor_G80_#14,Nucor Grade 80 Fully Threaded Bar #14,Solid threaded bar,Nucor Skyline,,#14,80,2.25,1.75,0.0,225,180.0,7.7,1.86,60,Nucor fully threaded bar data sheet Grade 80
+Nucor_G80_#18,Nucor Grade 80 Fully Threaded Bar #18,Solid threaded bar,Nucor Skyline,,#18,80,4.0,2.25,0.0,400,320.0,13.6,2.5,60,Nucor fully threaded bar data sheet Grade 80
+Nucor_G80_#20,Nucor Grade 80 Fully Threaded Bar #20,Solid threaded bar,Nucor Skyline,,#20,80,4.91,2.5,0.0,491,392.8,16.8,2.7,60,Nucor fully threaded bar data sheet Grade 80
+Nucor_G80_#24,Nucor Grade 80 Fully Threaded Bar #24,Solid threaded bar,Nucor Skyline,,#24,80,7.07,3.0,0.0,707,565.6,24.1,3.25,60,Nucor fully threaded bar data sheet Grade 80
+Nucor_G150_1.25,Nucor Grade 150 Fully Threaded Bar 1 1/4 in,Solid threaded bar,Nucor Skyline,,1 1/4 in,150,1.25,1.25,0.0,188,150,4.5,1.5,60,Nucor fully threaded bar data sheet Grade 150
+Nucor_G150_1.375,Nucor Grade 150 Fully Threaded Bar 1 3/8 in,Solid threaded bar,Nucor Skyline,,1 3/8 in,150,1.58,1.375,0.0,237,190,5.7,1.625,60,Nucor fully threaded bar data sheet Grade 150
+Nucor_G150_1.75,Nucor Grade 150 Fully Threaded Bar 1 3/4 in,Solid threaded bar,Nucor Skyline,,1 3/4 in,150,2.6,1.75,0.0,390,320,9.1,2.0,60,Nucor fully threaded bar data sheet Grade 150
+Nucor_G150_2.25,Nucor Grade 150 Fully Threaded Bar 2 1/4 in,Solid threaded bar,Nucor Skyline,,2 1/4 in,150,4.0,2.25,0.0,600,480,13.6,2.375,60,Nucor fully threaded bar data sheet Grade 150
+Nucor_G150_2.5,Nucor Grade 150 Fully Threaded Bar 2 1/2 in,Solid threaded bar,Nucor Skyline,,2 1/2 in,150,5.19,2.5,0.0,778,622,18.3,2.75,60,Nucor fully threaded bar data sheet Grade 150
+Nucor_G150_3.0,Nucor Grade 150 Fully Threaded Bar 3 in,Solid threaded bar,Nucor Skyline,,3 in,150,7.06,3.0,0.0,1059,847,24.0,3.25,60,Nucor fully threaded bar data sheet Grade 150
+CUSTOM_BAR,Custom Bar,Custom,User,,Custom,60,4.0,2.25,0.0,,,,,,User input
